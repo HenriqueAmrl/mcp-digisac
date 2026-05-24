@@ -1,0 +1,25 @@
+# Source files - not needed in published package
+src/
+
+# Tests - not needed in published package
+tests/
+
+# TypeScript config - not needed in published package
+tsconfig.json
+
+# Planning / tooling - never in package
+.planning/
+CLAUDE.md
+.claude/
+.agents/
+skills-lock.json
+
+# Environment files - never in package
+.env
+.env.*
+.env.example
+
+# Development artifacts
+*.log
+coverage/
+*.lcov
