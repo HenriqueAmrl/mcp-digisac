@@ -1,14 +1,25 @@
 {
   "name": "mcp-digisac",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP server for Digisac - connect AI assistants to Digisac REST API via MCP protocol",
+  "license": "MIT",
+  "keywords": ["mcp", "digisac", "model-context-protocol", "claude", "ai", "stdio", "atendimento", "tickets"],
+  "homepage": "https://github.com/HenriqueAmrl/mcp-digisac#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenriqueAmrl/mcp-digisac.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HenriqueAmrl/mcp-digisac/issues"
+  },
   "type": "module",
   "bin": {
     "mcp-digisac": "dist/index.js"
   },
   "files": [
     "dist/",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=20"

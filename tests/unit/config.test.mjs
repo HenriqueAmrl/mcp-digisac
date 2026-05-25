@@ -74,23 +74,17 @@ console.log(JSON.stringify(config));`
   assert.deepEqual(config, { token: 'abc', url: 'https://example.test' });
 });
 
-test('loadConfig: uses default URL when DIGISAC_URL is not set', async () => {
+test('loadConfig: exits with code 1 when DIGISAC_URL is not set', async () => {
   const result = await runConfigTest(
     { DIGISAC_TOKEN: 'abc', DIGISAC_URL: undefined },
     `import { loadConfig } from ${JSON.stringify(DIST_CONFIG)};
-const config = loadConfig();
-console.log(JSON.stringify(config));`
+loadConfig();`
   );
 
-  assert.equal(result.code, 0, `Expected exit code 0, got ${result.code}. stderr: ${result.stderr}`);
-
-  let config;
-  try {
-    config = JSON.parse(result.stdout);
-  } catch {
-    assert.fail(`Could not parse config JSON: ${JSON.stringify(result.stdout)}`);
-  }
-
-  assert.equal(config.token, 'abc');
-  assert.equal(config.url, 'https://api.digisac.co');
+  assert.equal(result.code, 1, `Expected exit code 1, got ${result.code}. stderr: ${result.stderr}`);
+  assert.ok(
+    result.stderr.includes('DIGISAC_URL'),
+    `Expected stderr to contain 'DIGISAC_URL', got: ${JSON.stringify(result.stderr)}`
+  );
+  assert.equal(result.stdout, '', `Expected empty stdout, got: ${JSON.stringify(result.stdout)}`);
 });

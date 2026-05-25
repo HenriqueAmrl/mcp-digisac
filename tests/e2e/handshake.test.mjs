@@ -23,13 +23,14 @@ const INITIALIZE_REQUEST = JSON.stringify({
 test('MCP handshake: positive case - server responds to initialize with valid JSON-RPC', async (t) => {
   await new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [DIST_INDEX], {
-      env: { ...process.env, DIGISAC_TOKEN: 'test-token-xyz' },
+      env: { ...process.env, DIGISAC_TOKEN: 'test-token-xyz', DIGISAC_URL: 'https://test.digisac.co' },
       stdio: ['pipe', 'pipe', 'pipe']
     });
 
     let stdoutBuffer = '';
     let stderrBuffer = '';
     let resolved = false;
+    let timeoutHandle;
 
     child.stdout.on('data', (chunk) => {
       stdoutBuffer += chunk.toString();
@@ -48,6 +49,7 @@ test('MCP handshake: positive case - server responds to initialize with valid JS
           child.kill();
           if (!resolved) {
             resolved = true;
+            clearTimeout(timeoutHandle);
             reject(new Error(`Non-JSON bytes on stdout: ${JSON.stringify(line)}`));
           }
           return;
@@ -64,12 +66,14 @@ test('MCP handshake: positive case - server responds to initialize with valid JS
             child.kill();
             if (!resolved) {
               resolved = true;
+              clearTimeout(timeoutHandle);
               resolve(undefined);
             }
           } catch (assertErr) {
             child.kill();
             if (!resolved) {
               resolved = true;
+              clearTimeout(timeoutHandle);
               reject(assertErr);
             }
           }
@@ -84,6 +88,7 @@ test('MCP handshake: positive case - server responds to initialize with valid JS
     child.on('error', (err) => {
       if (!resolved) {
         resolved = true;
+        clearTimeout(timeoutHandle);
         reject(new Error(`Child process error: ${err.message}`));
       }
     });
@@ -91,6 +96,7 @@ test('MCP handshake: positive case - server responds to initialize with valid JS
     child.on('exit', (code, signal) => {
       if (!resolved && signal !== 'SIGTERM' && signal !== 'SIGKILL') {
         resolved = true;
+        clearTimeout(timeoutHandle);
         reject(new Error(`Child exited unexpectedly: code=${code}, signal=${signal}, stderr=${stderrBuffer}`));
       }
     });
@@ -98,25 +104,14 @@ test('MCP handshake: positive case - server responds to initialize with valid JS
     // Send initialize request
     child.stdin.write(INITIALIZE_REQUEST);
 
-    // Timeout safety
-    const timeout = setTimeout(() => {
+    // Timeout safety - cleared in resolve/reject paths above
+    timeoutHandle = setTimeout(() => {
       child.kill();
       if (!resolved) {
         resolved = true;
         reject(new Error(`Timeout: no initialize response within 5 seconds. stdout so far: ${JSON.stringify(stdoutBuffer)}`));
       }
     }, 5000);
-
-    // Clean up timeout when done
-    Promise.resolve().then(() => {}).finally(() => {
-      // Timeout cleanup handled in resolve/reject
-    });
-
-    // Override resolve/reject to also clear timeout
-    const originalResolve = resolve;
-    const originalReject = reject;
-    // The timeout ref needs to be cleared - we'll do it in the child.stdout handler via resolved flag
-    setTimeout(() => clearTimeout(timeout), 5100); // fallback cleanup
   });
 });
 
