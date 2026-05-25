@@ -21,7 +21,7 @@ export const SearchContactsInput = z.object({
 });
 
 export const GetContactInput = z.object({
-  id: z.string().min(1).describe('Contact ID'),
+  id: z.string().regex(/^[a-zA-Z0-9_.-]+$/, 'ID must contain only alphanumeric characters, hyphens, underscores, or dots').describe('Contact ID'),
 });
 
 export const ListTicketsInput = z.object({
@@ -36,11 +36,11 @@ export const ListTicketsInput = z.object({
 });
 
 export const GetTicketInput = z.object({
-  id: z.string().min(1).describe('Ticket ID'),
+  id: z.string().regex(/^[a-zA-Z0-9_.-]+$/, 'ID must contain only alphanumeric characters, hyphens, underscores, or dots').describe('Ticket ID'),
 });
 
 export const GetTicketMessagesInput = z.object({
-  ticketId: z.string().min(1).describe('Ticket ID to load messages for'),
+  ticketId: z.string().regex(/^[a-zA-Z0-9_.-]+$/, 'ID must contain only alphanumeric characters, hyphens, underscores, or dots').describe('Ticket ID to load messages for'),
   page: z.number().int().min(1).optional(),
   limit: z.number().int().min(1).max(100).optional(),
 });
