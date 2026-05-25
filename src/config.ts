@@ -15,5 +15,5 @@ export function loadConfig(): { token: string; url: string } {
     process.exit(1);
   }
 
-  return { token, url };
+  return { token, url: url.replace(/\/$/, '') };
 }
