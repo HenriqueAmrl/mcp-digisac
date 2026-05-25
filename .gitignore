@@ -31,6 +31,9 @@ Thumbs.db
 coverage/
 *.lcov
 
+# Husky internal directory (auto-generated on npm install)
+.husky/_/
+
 # GSD / Claude tooling - local only, never committed
 .planning/
 CLAUDE.md

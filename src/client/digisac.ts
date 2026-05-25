@@ -23,11 +23,11 @@ export class DigiSacClient {
 
       return response.json();
     } catch (err) {
-      throw new Error(sanitizeError(err));
+      throw new Error(sanitizeError(err), { cause: err });
     }
   }
 
-  async post(_path: string, _body: unknown): Promise<unknown> {
+  async post(_path: string, _body?: unknown): Promise<unknown> {
     throw new Error('not implemented in Phase 1');
   }
 }

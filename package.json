@@ -17,14 +17,23 @@
     "build": "tsc",
     "prepublishOnly": "npm run build",
     "test": "npm run build && node --test tests/unit/*.test.mjs tests/e2e/*.test.mjs",
-    "lint:stdout": "if grep -rn 'console\\.log' src/; then echo 'console.log forbidden in src/' >&2; exit 1; fi"
+    "lint": "eslint .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^3.25"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^20",
+    "eslint": "^10.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5",
     "typescript": "^5.8.3",
-    "@types/node": "^20"
+    "typescript-eslint": "^8.59.4"
   }
 }
