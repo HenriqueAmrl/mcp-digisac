@@ -23,7 +23,7 @@ const INITIALIZE_REQUEST = JSON.stringify({
 test('MCP handshake: positive case - server responds to initialize with valid JSON-RPC', async (t) => {
   await new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [DIST_INDEX], {
-      env: { ...process.env, DIGISAC_TOKEN: 'test-token-xyz' },
+      env: { ...process.env, DIGISAC_TOKEN: 'test-token-xyz', DIGISAC_URL: 'https://test.digisac.co' },
       stdio: ['pipe', 'pipe', 'pipe']
     });
 

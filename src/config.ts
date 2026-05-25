@@ -7,5 +7,13 @@ export function loadConfig(): { token: string; url: string } {
     process.exit(1);
   }
 
-  return { token, url: url ?? 'https://api.digisac.co' };
+  if (!url) {
+    console.error(
+      'Error: DIGISAC_URL environment variable is required. ' +
+      'Set DIGISAC_URL=https://{your-slug}.digisac.app (no /api/v1 suffix - that is added automatically)'
+    );
+    process.exit(1);
+  }
+
+  return { token, url };
 }
