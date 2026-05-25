@@ -55,6 +55,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Configure npm registry for OIDC
+        run: echo "registry=https://registry.npmjs.org/" > ~/.npmrc
+
       - name: Install and build
         run: |
           npm ci
