@@ -2,8 +2,8 @@ export function loadConfig(): { token: string; url: string } {
   const token = process.env.DIGISAC_TOKEN;
   const url = process.env.DIGISAC_URL;
 
-  if (!token) {
-    console.error('Error: DIGISAC_TOKEN environment variable is required');
+  if (!token || token.trim() === '') {
+    console.error('Error: DIGISAC_TOKEN environment variable is required and must not be empty');
     process.exit(1);
   }
 
