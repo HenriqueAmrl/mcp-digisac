@@ -38,18 +38,6 @@ jobs:
           OUTPUT: CHANGELOG.md
           GITHUB_REPO: ${{ github.repository }}
 
-      - name: Commit updated CHANGELOG.md
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          cp CHANGELOG.md /tmp/CHANGELOG.md
-          git fetch origin main
-          git checkout -B main-changelog origin/main
-          cp /tmp/CHANGELOG.md CHANGELOG.md
-          git add CHANGELOG.md
-          git diff --staged --quiet || git commit -m "chore: update CHANGELOG.md for ${{ github.event.workflow_run.head_branch }}"
-          git push origin HEAD:main
-
       - name: Setup Node for publish
         uses: actions/setup-node@v4
         with:
