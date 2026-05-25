@@ -9,7 +9,7 @@ export function sanitizeError(err: unknown): string {
 function buildQuery(params: Record<string, string | number | boolean | undefined>): string {
   return Object.entries(params)
     .filter(([, v]) => v !== undefined && v !== null)
-    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`)
+    .map(([k, v]) => `${k}=${encodeURIComponent(String(v))}`)
     .join('&');
 }
 
