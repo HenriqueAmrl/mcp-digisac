@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { createRequire } from 'node:module';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { loadConfig } from './config.js';
@@ -8,11 +9,14 @@ import { registerContactsTools } from './tools/contacts.js';
 import { registerTicketsTools } from './tools/tickets.js';
 import { registerMessagesTools } from './tools/messages.js';
 
+const require = createRequire(import.meta.url);
+const { version } = require('../package.json') as { version: string };
+
 const config = loadConfig();
 const client = new DigiSacClient(config.token, config.url);
 
 const server = new McpServer(
-  { name: 'mcp-digisac', version: '0.1.0' },
+  { name: 'mcp-digisac', version },
   { capabilities: {} }
 );
 
