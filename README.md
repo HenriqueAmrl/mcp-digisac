@@ -14,6 +14,19 @@ An MCP (Model Context Protocol) server that lets Claude Desktop, Claude Code, an
 | `list_tickets` | List tickets with filters (status, agent, department, date range) |
 | `get_ticket` | Get a single ticket with SLA metrics (ticketTime, waitingTime, messagingTime) |
 | `get_ticket_messages` | Get the full message history for a ticket in chronological order |
+| `list_services` | List all configured channels (WhatsApp, Instagram, Telegram, etc.) with type and health status |
+| `get_service` | Get full details of a configured channel by ID |
+| `list_tags` | List all tags in the account with label and background color |
+| `get_tag` | Get full details of a single tag by ID |
+| `list_ticket_topics` | List all ticket topic categories for reporting |
+| `list_quick_replies` | List all quick reply templates available to agents |
+| `list_bots` | List all bots configured in the account |
+| `get_bot` | Get full configuration of a single bot by ID |
+| `list_organizations` | List CRM organizations linked to contacts |
+| `get_organization` | Get full details of a single CRM organization by ID |
+| `list_people` | List CRM people linked to contacts and organizations |
+| `get_person` | Get full details of a single CRM person by ID |
+| `get_me` | Get the authenticated user profile, confirming the token identity |
 
 ## Requirements
 
@@ -78,6 +91,12 @@ Once configured, you can ask Claude questions like:
 - "Which agents are in the Sales department?"
 - "Get the full profile of contact with ID xyz"
 - "What are the SLA metrics for ticket 456?"
+- "Which WhatsApp and Instagram channels are connected?"
+- "List all tags and their colors"
+- "Show me the quick reply templates available"
+- "Which bots are configured in the account?"
+- "List the CRM organizations"
+- "Who am I authenticated as?"
 
 ## Security
 
