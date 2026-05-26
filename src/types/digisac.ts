@@ -44,3 +44,50 @@ export const GetTicketMessagesInput = z.object({
   page: z.number().int().min(1).optional(),
   limit: z.number().int().min(1).max(100).optional(),
 });
+
+// Phase 4 schemas - services, tags, bots, CRM organizations + people
+
+export const ListServicesInput = z.object({
+  page: z.number().int().min(1).optional(),
+  perPage: z.number().int().min(1).max(100).optional(),
+});
+
+export const GetServiceInput = z.object({
+  id: z.string().regex(/^[a-zA-Z0-9_.-]+$/, 'ID must contain only alphanumeric characters, hyphens, underscores, or dots').describe('Service ID'),
+});
+
+export const ListTagsInput = z.object({
+  page: z.number().int().min(1).optional(),
+  perPage: z.number().int().min(1).max(100).optional(),
+});
+
+export const GetTagInput = z.object({
+  id: z.string().regex(/^[a-zA-Z0-9_.-]+$/, 'ID must contain only alphanumeric characters, hyphens, underscores, or dots').describe('Tag ID'),
+});
+
+export const ListBotsInput = z.object({
+  page: z.number().int().min(1).optional(),
+  perPage: z.number().int().min(1).max(100).optional(),
+});
+
+export const GetBotInput = z.object({
+  id: z.string().regex(/^[a-zA-Z0-9_.-]+$/, 'ID must contain only alphanumeric characters, hyphens, underscores, or dots').describe('Bot ID'),
+});
+
+export const ListOrganizationsInput = z.object({
+  page: z.number().int().min(1).optional(),
+  perPage: z.number().int().min(1).max(100).optional(),
+});
+
+export const GetOrganizationInput = z.object({
+  id: z.string().regex(/^[a-zA-Z0-9_.-]+$/, 'ID must contain only alphanumeric characters, hyphens, underscores, or dots').describe('Organization ID'),
+});
+
+export const ListPeopleInput = z.object({
+  page: z.number().int().min(1).optional(),
+  perPage: z.number().int().min(1).max(100).optional(),
+});
+
+export const GetPersonInput = z.object({
+  id: z.string().regex(/^[a-zA-Z0-9_.-]+$/, 'ID must contain only alphanumeric characters, hyphens, underscores, or dots').describe('Person ID'),
+});
