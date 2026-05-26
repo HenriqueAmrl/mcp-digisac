@@ -8,6 +8,12 @@ import { registerAgentsTools } from './tools/agents.js';
 import { registerContactsTools } from './tools/contacts.js';
 import { registerTicketsTools } from './tools/tickets.js';
 import { registerMessagesTools } from './tools/messages.js';
+import { registerServicesTools } from './tools/services.js';
+import { registerTagsTools } from './tools/tags.js';
+import { registerCatalogTools } from './tools/catalog.js';
+import { registerBotsTools } from './tools/bots.js';
+import { registerCrmTools } from './tools/crm.js';
+import { registerIdentityTools } from './tools/identity.js';
 
 const require = createRequire(import.meta.url);
 const { version } = require('../package.json') as { version: string };
@@ -24,6 +30,12 @@ registerAgentsTools(server, client);
 registerContactsTools(server, client);
 registerTicketsTools(server, client);
 registerMessagesTools(server, client);
+registerServicesTools(server, client);
+registerTagsTools(server, client);
+registerCatalogTools(server, client);
+registerBotsTools(server, client);
+registerCrmTools(server, client);
+registerIdentityTools(server, client);
 
 async function main() {
   const transport = new StdioServerTransport();
